@@ -1,3 +1,4 @@
+This component is SUPPORTED by OutSystems. Customers entitled to Support Services may obtain assistance through Support.
 ---
 title: Camera
 description: Take pictures with the device camera.
