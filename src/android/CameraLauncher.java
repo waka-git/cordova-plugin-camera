@@ -141,6 +141,10 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
         this.applicationId = preferences.getString("applicationId", this.applicationId);
 
 
+        //Fix for the OutSystems NativeShell
+        if(applicationId == null)
+            applicationId = cordova.getActivity().getPackageName();
+        
         if (action.equals("takePicture")) {
             this.srcType = CAMERA;
             this.destType = FILE_URI;
