@@ -140,7 +140,15 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
         this.applicationId = (String) BuildHelper.getBuildConfigValue(cordova.getActivity(), "APPLICATION_ID");
         this.applicationId = preferences.getString("applicationId", this.applicationId);
 
-        
+        /**
+        * Fix for the OutSystems NativeShell
+        * The com.outsystems.myapp.BuildConfig class from BuildHelper.getBuildConfigValue is only created when using the cordova to build our app,
+        * since we do not use cordova to build our app, we must add this condition to ensure that the applicationId is not null.
+        * TODO: Remove this condition when we start to use cordova build command to build our applications.
+        */
+        if(applicationId == null)
+            applicationId = cordova.getActivity().getPackageName();
+                
         if (action.equals("takePicture")) {
             this.srcType = CAMERA;
             this.destType = FILE_URI;
