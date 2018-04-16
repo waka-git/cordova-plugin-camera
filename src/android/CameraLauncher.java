@@ -519,7 +519,17 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
 
             if (bitmap == null) {
                 // Try to get the bitmap from intent.
-                bitmap = (Bitmap) intent.getExtras().get("data");
+                if (intent != null) {
+                    try {
+                        // getExtras can throw different exceptions
+                        Bundle extras = intent.getExtras();
+                        if (extras != null) {
+                            bitmap = (Bitmap) intent.getExtras().get("data");
+                        }
+                    } catch (Exception e) {
+                        // Don't let the exception bubble up, bitmap will be null (check below)
+                    }
+                }
             }
 
             // Double-check the bitmap.

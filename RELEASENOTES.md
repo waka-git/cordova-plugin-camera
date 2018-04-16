@@ -20,6 +20,9 @@
 -->
 # Release Notes
 
+### 2.3.2-OS (Apr 16, 2018)
+* [RNMT-1575] Fixed camera plugin to not crash when an invalid bitmap is present (and intent extras doesn't have info - NullPointerException)
+
 ### 2.3.1 (Dec 07, 2016)
 * [CB-12224](https://issues.apache.org/jira/browse/CB-12224) Updated version and RELEASENOTES.md for release 2.3.1
 * Fix missing license headers.
