@@ -729,7 +729,7 @@ static NSString* toBase64(NSData* data) {
 
 - (BOOL)prefersStatusBarHidden
 {
-    return NO;
+    return YES;
 }
 
 - (UIViewController*)childViewControllerForStatusBarHidden
