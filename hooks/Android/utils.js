@@ -7,14 +7,21 @@ var fs = require("fs");
  */
 function getPlatformVersion(context) {
     var projectRoot = context.opts.projectRoot;
-    var platformsJsonFile = path.join(
+
+    var packageJsonFile = path.join(
         projectRoot,
-        "platforms",
-        "platforms.json"
+        "package.json"
     );
-    var platforms = require(platformsJsonFile);
-    var platform = context.opts.plugin.platform;
-    return platforms[platform];
+
+    var devDependencies = require(packageJsonFile).devDependencies;
+    var platform = devDependencies["cordova-android"];
+
+    if (platform.includes('^')){
+        var index = platform.indexOf('^');
+        platform = platform.slice(0, index) + platform.slice(index+1);
+    }
+
+    return platform;
 }
 
 function rmNonEmptyDir(dir_path) {

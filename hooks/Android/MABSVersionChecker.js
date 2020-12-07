@@ -4,11 +4,10 @@ var utils = require("./utils");
 module.exports = function(context) {
 
     var platform = context.opts.plugin.platform;
-    switch (platform) {
-        case "android": {
+
+    if(platform === "android") {
             var platformVersion = utils.getPlatformVersion(context);
             if (platformVersion >= "9") {
-                console.log("platformVersion: " + platformVersion);
                 var configXML = path.join(context.opts.projectRoot, 'config.xml');
 
                 if (fs.existsSync(configXML)) {
@@ -25,7 +24,7 @@ module.exports = function(context) {
                     if (err) 
                       {throw new Error('Camera Plugin: Unable to write into config.xml: ' + err);}
                     else 
-                      {console.log("Camera Plugin: config.xml patched for using MABS 7 successfuly");}
+                      {console.log("Camera Plugin: config.xml patched for using MABS 7 successfuly!");}
                     })
                   });
                 } else {
@@ -34,9 +33,5 @@ module.exports = function(context) {
             } else {
                 console.log("Camera Plugin: config.xml not patched for MABS 7. MABS 6.3 or below detected.");
             }
-        }
-    
-        default:
-            console.log("Camera Plugin: did not detect Android platform.");
     }
 }
