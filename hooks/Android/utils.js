@@ -14,14 +14,26 @@ function getPlatformVersion(context) {
     );
 
     var devDependencies = require(packageJsonFile).devDependencies;
-    var platform = devDependencies["cordova-android"];
 
-    if (platform.includes('^')){
-        var index = platform.indexOf('^');
-        platform = platform.slice(0, index) + platform.slice(index+1);
-    }
-
-    return platform;
+    if(devDependencies !== undefined){
+        //Probably MABS7
+        var platform = devDependencies["cordova-android"];
+        if (platform.includes('^')){
+            var index = platform.indexOf('^');
+            platform = platform.slice(0, index) + platform.slice(index+1);
+        }
+        return platform;
+    } else {
+        //Probably MABS6.X
+        var platformsJsonFile = path.join(
+            projectRoot,
+            "platforms",
+            "platforms.json"
+        );
+        var platforms = require(platformsJsonFile);
+        var platform = context.opts.plugin.platform;
+        return platforms[platform];
+    }    
 }
 
 function rmNonEmptyDir(dir_path) {
